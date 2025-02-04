@@ -26,7 +26,7 @@ gem 'rspec_api_documentation'
 gem 'sidekiq'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'stimulus-rails'
-gem 'tailwindcss-rails', '~> 3.3.1'
+gem 'tailwindcss-rails', '~> 4.0.0'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'xlog'
