@@ -49,7 +49,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
+  gem 'rspec-rails', '~> 7.1'
   gem 'rspec-sidekiq'
   gem 'webmock'
 end
