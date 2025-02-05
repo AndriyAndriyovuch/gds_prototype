@@ -3,6 +3,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }
+
   mount MaintenanceTasks::Engine, at: '/maintenance_tasks'
   mount Motor::Admin => '/motor_admin'
 
@@ -30,5 +32,5 @@ Rails.application.routes.draw do
   get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "hotels#index"
 end

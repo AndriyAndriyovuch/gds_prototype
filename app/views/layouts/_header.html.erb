@@ -1,0 +1,15 @@
+<header class="flex justify-between items-center h-12 pe-4 bg-gradient-to-r to-green-400 from-blue-500">
+  <%= link_to fa_icon('home'), root_path, class: 'hover:text-white font-semibold rounded-lg transition duration-200 ease-in-out h-full flex items-center text-gray-700 mr-2 ms-5' %>
+
+  <div class="flex items-center">
+    <% if user_signed_in? %>
+      <span class="text-gray-700 font-bold mr-4"><%= current_user.full_name %></span>
+      <%= button_to destroy_user_session_path, class: 'flex items-center h-full ps-5 pe-3 hover:text-white font-semibold rounded-lg transition duration-200 ease-in-out transform hover:translate-x-2', method: :delete, data: { turbo: false} do %>
+        <%= fa_icon 'chevron-right' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path, class: "h-3/4 bg-blue-500 hover:bg-blue-600 text-white text-justify font-bold py-2 px-4 rounded-lg shadow-md transition-transform duration-200 transform hover:scale-105 me-5" %>
+      <%= link_to 'Sign up', new_user_registration_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+    <% end %>
+  </div>
+</header>

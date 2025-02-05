@@ -2,10 +2,13 @@
 
 source 'https://rubygems.org'
 
+gem 'amadeus', '~> 5.2', '>= 5.2.1'
 gem 'bootsnap', require: false
+gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'devise_invitable'
 gem 'devise-jwt'
 gem 'file_exists'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.8'
 gem 'image_processing'
 gem 'importmap-rails'
 gem 'jbuilder'
@@ -26,6 +29,7 @@ gem 'rspec_api_documentation'
 gem 'sidekiq'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'stimulus-rails'
+gem 'stringio', '~> 3.1', '>= 3.1.2'
 gem 'tailwindcss-rails', '~> 3.3.1'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
