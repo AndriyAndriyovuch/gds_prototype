@@ -18,8 +18,8 @@ resource 'v1 Users > Registration' do
       let(:params) do
         {
           user: {
-            email: email,
-            password: password,
+            email:,
+            password:,
             password_confirmation: password
           }
         }

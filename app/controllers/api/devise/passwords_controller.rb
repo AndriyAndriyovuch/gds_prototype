@@ -7,7 +7,7 @@ class Api::Devise::PasswordsController < Devise::PasswordsController
 
   def create
     record_response(
-      Users::Operations::SendPasswordRestoreEmail.call(record: record,
+      Users::Operations::SendPasswordRestoreEmail.call(record:,
                                                        record_params: resource_params.permit!).data[:record],
       root: resource_name
     )

@@ -6,7 +6,7 @@ class Api::V1::DirectUploadsController < Api::V1::BaseController
 
   def create
     operation_response(
-      DirectUploads::Operations::Create.call(record_params: record_params),
+      DirectUploads::Operations::Create.call(record_params:),
       serializer: DirectUploadSerializer,
       root: :direct_upload
     )
@@ -14,7 +14,7 @@ class Api::V1::DirectUploadsController < Api::V1::BaseController
 
   def destroy
     operation_response(
-      DirectUploads::Operations::Destroy.call(blob: blob)
+      DirectUploads::Operations::Destroy.call(blob:)
     )
   end
 

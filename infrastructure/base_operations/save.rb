@@ -15,6 +15,6 @@ module BaseOperations::Save
 
     return yield if block_given?
 
-    success(record: record)
+    success(record:)
   end
 end

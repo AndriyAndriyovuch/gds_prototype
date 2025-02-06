@@ -13,7 +13,7 @@ resource 'v1 Users > Authentication' do
     end
 
     let(:params) do
-      { user: { email: email, accept_password_url: Faker::Internet.url } }
+      { user: { email:, accept_password_url: Faker::Internet.url } }
     end
 
     let(:mail) { ActionMailer::Base.deliveries.last }
