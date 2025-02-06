@@ -4,7 +4,7 @@ class Amadeus::Hotels::Rating < Amadeus::Hotels::Base
   # QUERY PARAMETERS
   #
   # hotel_ids - Amadeus unique hotel code. Array
-  def call(hotel_ids:, options: {})
+  def call(hotel_ids:)
     get_request(options: { 'hotelIds' => hotel_ids.join(',') })
   end
 
