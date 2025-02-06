@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rspec/retry'
+# require 'rspec/retry'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -20,21 +20,21 @@ RSpec.configure do |config|
   # config.before { Current.user = nil }
 end
 
-RSpec.configure do |config|
-  # show retry status in spec process
-  config.verbose_retry = true
-  # show exception that triggers a retry if verbose_retry is set to true
-  config.display_try_failure_messages = true
-
-  # run retry only on features
-  config.around do |ex|
-    ex.run_with_retry retry: 3
-  end
-
-  # callback to be run between retries
-  config.retry_callback = proc do |ex|
-    puts "Exception: #{ex.inspect} #{ex.display_exception}"
-    # run some additional clean up task - can be filtered by example metadata
-    DatabaseCleaner.clean
-  end
-end
+# RSpec.configure do |config|
+#   # show retry status in spec process
+#   config.verbose_retry = true
+#   # show exception that triggers a retry if verbose_retry is set to true
+#   config.display_try_failure_messages = true
+#
+#   # run retry only on features
+#   config.around do |ex|
+#     ex.run_with_retry retry: 3
+#   end
+#
+#   # callback to be run between retries
+#   config.retry_callback = proc do |ex|
+#     puts "Exception: #{ex.inspect} #{ex.display_exception}"
+#     # run some additional clean up task - can be filtered by example metadata
+#     DatabaseCleaner.clean
+#   end
+# end
