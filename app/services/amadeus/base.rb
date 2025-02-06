@@ -29,4 +29,14 @@ class Amadeus::Base < BaseAction
 
     JSON.parse(request.body)
   end
+
+  def post_request(destination_url = nil, options: {})
+    request(:post, destination_url, options)
+  end
+
+  def request(method, destination_url, options)
+    request = Faraday.__send__(method, [url, destination_url].compact.join('/'), options, headers)
+
+    JSON.parse(request.body)
+  end
 end
