@@ -48,6 +48,11 @@ group :development do
   gem 'brakeman'
   gem 'bullet'
   gem 'rubocop'
+  gem 'rubocop-factory_bot', '~> 2.25.1'
+  gem 'rubocop-performance', '~> 1.20.2'
+  gem 'rubocop-rails', '~> 2.23.1'
+  gem 'rubocop-rake', '~> 0.6.0'
+  gem 'rubocop-rspec', '~> 2.26.1'
   gem 'rubycritic'
   gem 'web-console'
 end
