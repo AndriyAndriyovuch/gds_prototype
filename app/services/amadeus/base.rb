@@ -35,6 +35,7 @@ class Amadeus::Base < BaseAction
   end
 
   def request(method, destination_url, options)
+    pry
     request = Faraday.__send__(method, [url, destination_url].compact.join('/'), options, headers)
 
     JSON.parse(request.body)

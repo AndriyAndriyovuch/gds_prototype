@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 
 gem 'amadeus', '~> 5.2', '>= 5.2.1'
 gem 'bootsnap', require: false
+gem 'city-state', '~> 1.1'
+gem 'countries', '~> 7.1'
+gem 'credit_card_validations', '~> 7.0'
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'devise_invitable'
 gem 'devise-jwt'
