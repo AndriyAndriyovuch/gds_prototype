@@ -1,0 +1,68 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center mb-8">Offer Details</h1>
+
+  <% if flash[:alert] %>
+    <div class="bg-red-500 text-white text-center p-3 rounded-lg mb-4">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <div class="bg-white shadow-lg rounded-xl p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-2"><%= @offer.dig("data", "hotel", "name") %></h2>
+    <p class="text-gray-600">
+      <%= @offer.dig("data", "hotel", "cityCode") %>, <%= @offer.dig("data", "hotel", "address", "countryCode") %>
+    </p>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold">Room Information</h3>
+      <p class="text-gray-700"><%= @offer.dig("data", "offers", 0, "description", "text") %></p>
+      <p class="text-gray-800 font-bold mt-2">
+        Price: <%= @offer.dig("data", "offers", 0, "price", "total") %> <%= @offer.dig("data", "offers", 0, "price", "currency") %>
+      </p>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold">Taxes</h3>
+      <% @offer.dig("data", "offers", 0, "price", "taxes").each do |tax| %>
+        <p class="text-gray-600">
+          <strong><%= tax["code"].titleize %>:</strong> <%= tax["amount"] %> <%= tax["currency"] %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="mt-4">
+      <h3 class="text-xl font-semibold">Cancellation Policy</h3>
+      <% if @offer.dig("data", "offers", 0, "policies", "refundable", "cancellationRefund") == "REFUNDABLE_UP_TO_DEADLINE" %>
+        <p class="text-green-600">Refundable up to <%= @offer.dig("data", "offers", 0, "policies", "cancellations", 0, "deadline") %></p>
+      <% else %>
+        <p class="text-red-600">Non-refundable</p>
+      <% end %>
+    </div>
+
+    <a href="#" class="mt-6 inline-block bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Book Now</a>
+  </div>
+</div>
+<!--{"data"=>-->
+<!--{"type"=>"hotel-offers",-->
+<!--"hotel"=>{"type"=>"hotel", "hotelId"=>"ALBLR545", "chainCode"=>"AL", "name"=>"ALOFT BENGALURU CESSNA PARK", "cityCode"=>"BLR", "address"=>{"countryCode"=>"IN", "stateCode"=>"KA"}, "amenities"=>["CRIBS_AVAILABLE"]},-->
+<!--"available"=>true,-->
+<!--"offers"=>-->
+<!--[{"id"=>"0IZUOBWB9D",-->
+<!--"checkInDate"=>"2025-02-08",-->
+<!--"checkOutDate"=>"2025-02-09",-->
+<!--"rateCode"=>"RAC",-->
+<!--"rateFamilyEstimated"=>{"code"=>"BAR", "type"=>"P"},-->
+<!--"description"=>{"text"=>"Guest Room, 2 Twin, Mini fridge, 27sqm/291sqft, Wireless internet, complimentary, Wired intern et, complimentary, Coffee/tea maker", "lang"=>"EN"},-->
+<!--"room"=>{"type"=>"REG", "description"=>{"text"=>"Flexible Rate", "lang"=>"EN"}},-->
+<!--"guests"=>{"adults"=>1},-->
+<!--"price"=>-->
+<!--{"currency"=>"INR",-->
+<!--"base"=>"16200.00",-->
+<!--"total"=>"19116.00",-->
+<!--"taxes"=>-->
+<!--[{"code"=>"CITY_TAX", "pricingFrequency"=>"PER_STAY", "pricingMode"=>"PER_PRODUCT", "amount"=>"1458.00", "currency"=>"INR", "included"=>false},-->
+<!--{"code"=>"STATE_TAX", "pricingFrequency"=>"PER_STAY", "pricingMode"=>"PER_PRODUCT", "amount"=>"1458.00", "currency"=>"INR", "included"=>false}],-->
+<!--"variations"=>{"changes"=>[{"startDate"=>"2025-02-08", "endDate"=>"2025-02-09", "base"=>"16200.00"}]}},-->
+<!--"policies"=>{"cancellations"=>[{"numberOfNights"=>1, "deadline"=>"2025-02-07T23:59:00+05:30", "amount"=>"16200.00", "policyType"=>"CANCELLATION"}], "paymentType"=>"guarantee", "refundable"=>{"cancellationRefund"=>"REFUNDABLE_UP_TO_DEADLINE"}}}]},-->
+<!--"meta"=>{"lang"=>"EN"}}-->
+<!--[2] pry(#<HotelsController>)> -->

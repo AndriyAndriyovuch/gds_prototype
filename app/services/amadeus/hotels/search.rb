@@ -12,6 +12,10 @@ class Amadeus::Hotels::Search < Amadeus::Hotels::Base
     get_request(options:)
   end
 
+  def offer_details(offer_id:)
+    get_request(offer_id)
+  end
+
   private
 
   def api_version

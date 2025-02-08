@@ -33,4 +33,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root 'hotels#index'
+
+  resources :hotels, only: :index do
+    collection do
+      get :search
+      get :offers
+      get :offer_details
+    end
+  end
 end

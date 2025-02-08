@@ -1,0 +1,41 @@
+<div class="mx-auto">
+  <% if flash[:alert] %>
+    <div class="bg-red-500 text-white text-center p-3 rounded-lg mb-4">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Hotel offers</h1>
+
+  <%= form_with url: search_hotels_path, method: :get do %>
+    <div class="mb-6 relative flex items-center space-x-4">
+      <div class="relative flex-grow">
+        <%= text_field_tag :city, params[:city], placeholder: "Search for hotels in a city...", class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500", id: "search-input" %>
+      </div>
+
+      <div class="relative">
+        <%= select_tag :country, options_for_select(@countries), include_blank: 'select field' , class: "border border-gray-300 text-gray-7 00 rounded-lg px-8 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= submit_tag "Search", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform duration-200 transform hover:scale-105" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @hotels.present? %>
+    <div class="container mx-auto p-6">
+      <h1 class="text-3xl font-bold text-center mb-8">Hotel Listings</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @hotels.each do |hotel| %>
+          <div class="bg-white shadow-lg rounded-2xl overflow-hidden p-6 transition-transform transform hover:scale-105">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">
+              <%= link_to hotel["name"], offers_hotels_path(hotel_id: hotel["hotelId"]), class: "text-blue-600 hover:underline" %>
+            </h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+</div>
