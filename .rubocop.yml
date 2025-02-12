@@ -21,6 +21,12 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Rails/NotNullColumn:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - config/**/*
@@ -28,11 +34,13 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - db/**/*
-  Max: 25
+  Max: 50
+
 Metrics/ModuleLength:
   Max: 150
 
 Metrics/AbcSize:
+  Max: 25
   Exclude:
     - db/migrate/*
 Metrics/ClassLength:

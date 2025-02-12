@@ -4,7 +4,7 @@ class Amadeus::Hotels::Booking < Amadeus::Base
   def create(offer_id:, payment_data:, user: current_user, options: {})
     data = {
       data: {
-        offer_id: ,
+        offer_id:,
         guests: [
           {
             id: user.id,

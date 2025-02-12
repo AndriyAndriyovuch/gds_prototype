@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hotel < ApplicationRecord
   validates :country_code, length: { is: 2 }
   validates :dupe_id, numericality: { only_integer: true }
