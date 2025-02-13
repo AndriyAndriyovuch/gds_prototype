@@ -5,40 +5,88 @@ div.container.mx-auto.p-6
     div.bg-red-500.text-white.text-center.p-3.rounded-lg.mb-4 = flash[:alert]
 
   div.bg-white.shadow-lg.rounded-xl.p-6
-    h2.text-2xl.font-bold.text-gray-800.mb-2 = @offer.dig("data", "hotel", "name")
+    h2.text-2xl.font-bold.text-gray-800.mb-2 = @offer.dig("hotel", "name")
     p.text-gray-600
-      = @offer.dig("data", "hotel", "cityCode")
+      = @offer.dig("hotel", "cityCode")
       | ,
-      = @offer.dig("data", "hotel", "address", "countryCode")
+      = @offer.dig("hotel", "address", "countryCode")
+
+    p.text-gray-700.mt-2 
+      | Address:
+      = @offer.dig("hotel", "address", "lines")&.join(", ")
+      | ,
+      = @offer.dig("hotel", "address", "postalCode")
+      | ,
+      = @offer.dig("hotel", "address", "cityName")
+
+    p.text-gray-700.mt-2
+      | Contact:
+      = @offer.dig("hotel", "contact", "phone")
+
+    p.text-gray-700.mt-2
+      | Amenities:
+      = @offer.dig("hotel", "amenities")&.join(", ")
 
     div.mt-4
       h3.text-xl.font-semibold Room Information
-      p.text-gray-700 = @offer.dig("data", "offers", 0, "description", "text")
+      p.text-gray-700 = @offer.dig("offers", 0, "room", "name")
+      p.text-gray-700 = @offer.dig("offers", 0, "room", "description", "text")
+      p.text-gray-700 = @offer.dig("offers", 0, "description", "text")
+      p.text-gray-700
+        | Guests:
+        = @offer.dig("offers", 0, "guests", "adults")
+        |  Adult(s)
       p.text-gray-800.font-bold.mt-2
         | Price:
-        = @offer.dig("data", "offers", 0, "price", "total")
-        = @offer.dig("data", "offers", 0, "price", "currency")
+        = @offer.dig("offers", 0, "price", "total")
+        = @offer.dig("offers", 0, "price", "currency")
 
-    - if @offer.dig("data", "offers", 0, "price", "taxes").present?
+    - if @offer.dig("offers", 0, "price", "taxes").present?
       div.mt-4
         h3.text-xl.font-semibold Taxes
-        - @offer.dig("data", "offers", 0, "price", "taxes").each do |tax|
+        - @offer.dig("offers", 0, "price", "taxes").each do |tax|
           p.text-gray-600
-            strong = tax["code"].titleize
+            strong = tax["code"]&.titleize
             | :
             = tax["amount"]
             = tax["currency"]
 
     div.mt-4
       h3.text-xl.font-semibold Cancellation Policy
-      - if @offer.dig("data", "offers", 0, "policies", "refundable", "cancellationRefund") == "REFUNDABLE_UP_TO_DEADLINE"
+      - if @offer.dig("offers", 0, "policies", "refundable", "cancellationRefund") == "REFUNDABLE_UP_TO_DEADLINE"
         p.text-green-600
           | Refundable up to
-          = @offer.dig("data", "offers", 0, "policies", "cancellations", 0, "deadline")
+          = @offer.dig("offers", 0, "policies", "cancellations", 0, "deadline")
       - else
         p.text-red-600 Non-refundable
 
+    div.mt-4
+      h3.text-xl.font-semibold Payment Policies
+      - @offer.dig("offers", 0, "policies")&.each do |key, value|
+        div.mt-2
+          strong = key.to_s.titleize + ":"
+          - if value.is_a?(Hash)
+            - value.each do |sub_key, sub_value|
+              p.text-gray-700
+                strong = sub_key.to_s.titleize + ":"
+                - if sub_value.is_a?(Array)
+                  = sub_value.join(", ")
+                - elsif sub_value.is_a?(Hash)
+                  - sub_value.each do |sub_sub_key, sub_sub_value|
+                    p.text-gray-700
+                      strong = sub_sub_key.to_s.titleize + ":"
+                      - if sub_sub_value.is_a?(Array)
+                        = sub_sub_value.join(", ")
+                      - elsif sub_sub_value.is_a?(Hash)
+                        - sub_sub_value.each do |sub_sub_sub_key, sub_sub_sub_value|
+                          p.text-gray-700
+                            strong = sub_sub_sub_key.to_s.titleize + ":"
+                            = sub_sub_sub_value.is_a?(Array) ? sub_sub_sub_value.join(", ") : sub_sub_sub_value.to_s.titleize
+          - else
+            p.text-gray-700 = value
+
     a.mt-6.inline-block.bg-blue-500.text-white.px-4.py-2.rounded-lg.hover:bg-blue-600 href="#" Book Now
+
 
 / {"data"=>
 / {"type"=>"hotel-offers",
