@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       get :search
       get :offers
       get :offer_details
+      get :new_booking
+      post :create_booking
     end
   end
 end

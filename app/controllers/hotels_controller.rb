@@ -28,8 +28,6 @@ class HotelsController < ApplicationController
   def offers
     @offers = Amadeus::Hotels::Search.new.call(hotel_ids: [params[:hotel_id]])['data']
 
-    # pry
-
     if @offers.blank?
       flash[:alert] = 'No available rooms'
       redirect_to search_hotels_path and return
@@ -41,6 +39,20 @@ class HotelsController < ApplicationController
 
   def offer_details
     @offer = Amadeus::Hotels::Search.new.offer_details(offer_id: params[:offer_id])['data']
-    # pry
+  end
+
+  def new_booking
+    @offer_id = params[:offer_id]
+    @guests = {}
+    @payment_data = {}
+    @options = {}
+  end
+
+  def create_booking
+    @booking = Amadeus::Hotels::Booking.new.create(offer_id: params[:offer_id],
+                                                   # guests: params[:guests],
+                                                   payment_data: params[:payment_data],
+                                                   options: params[:options],
+                                                   user: User.last)
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Amadeus::Hotels::Booking < Amadeus::Base
-  def create(offer_id:, payment_data:, user: current_user, options: {})
+  def create(offer_id:, payment_data:, user:, options: {})
     data = {
       data: {
         offer_id:,
@@ -22,7 +22,8 @@ class Amadeus::Hotels::Booking < Amadeus::Base
         payments: [
           {
             id: payment_data[:id],
-            method: payment_data[:method],
+            # method: payment_data[:method], # TODO: implement
+            method: 'creditCard',
             card: {
               vendor_code: payment_data[:vendor_code],
               card_number: payment_data[:card_number],
@@ -33,7 +34,7 @@ class Amadeus::Hotels::Booking < Amadeus::Base
         rooms: [
           {
             guest_ids: options[:guest_ids],
-            payment_id: payment_data[:id],
+            payment_id: options[:id],
             special_request: options[:special_request]
           }
         ]

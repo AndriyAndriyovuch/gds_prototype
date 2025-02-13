@@ -31,11 +31,8 @@ class Amadeus::Base < BaseAction
   end
 
   def post_request(destination_url = nil, options: {})
-    request(:post, destination_url, options)
-  end
-
-  def request(method, destination_url, options)
-    request = Faraday.__send__(method, [url, destination_url].compact.join('/'), options, headers)
+    request = Faraday.post([url, destination_url].compact.join('/'), options.to_json,
+                           headers.merge({ 'Content-Type' => 'application/json' }))
 
     JSON.parse(request.body)
   end
