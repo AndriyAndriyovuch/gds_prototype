@@ -28,22 +28,28 @@ class HotelsController < ApplicationController
 
     options = params.permit!.slice("check_in_date", "check_out_date", "room_quantity", "adults").to_h.compact_blank
 
-    @hotels = Amadeus::Hotels::Search.new.call(hotel_ids: current_ids, options:)['data']&.map{|a| a['hotel']}
+    @hotels = Amadeus::Hotels::Search.new.call(hotel_ids: current_ids, options:)['data']&.map do |offer|
+      data = offer['hotel']
+      data['offer_id'] = offer.dig('offers', 0, 'id')
+
+      data
+    end
+
 
     render :index
   end
-
-  def offers
-    @offers = Amadeus::Hotels::Search.new.call(hotel_ids: [params[:hotel_id]])['data']
-
-    if @offers.blank?
-      flash[:alert] = 'No available rooms'
-      redirect_to search_hotels_path and return
-    end
-
-    @countries = ISO3166::Country.all_names_with_codes
-    @hotels = Amadeus::Hotels::List.new.by_city(city_code: 'BLR')['data'].sort_by { |k| k['name'] }
-  end
+  #
+  # def offers
+  #   @offers = Amadeus::Hotels::Search.new.call(hotel_ids: [params[:hotel_id]])['data']
+  #
+  #   if @offers.blank?
+  #     flash[:alert] = 'No available rooms'
+  #     redirect_to search_hotels_path and return
+  #   end
+  #
+  #   @countries = ISO3166::Country.all_names_with_codes
+  #   @hotels = Amadeus::Hotels::List.new.by_city(city_code: 'BLR')['data'].sort_by { |k| k['name'] }
+  # end
 
   def offer_details
     @offer = Amadeus::Hotels::Search.new.offer_details(offer_id: params[:offer_id])['data']

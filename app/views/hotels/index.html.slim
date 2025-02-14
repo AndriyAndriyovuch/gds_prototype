@@ -43,44 +43,7 @@ div.mx-auto
         - @hotels.each do |hotel|
           div.bg-white.shadow-lg.rounded-2xl.overflow-hidden.p-6.transition-transform.transform.hover:scale-105
             h2.text-xl.font-semibold.text-gray-800.mb-2
-              = link_to hotel["name"].titleize, offers_hotels_path(hotel_id: hotel["hotelId"]), class: "text-blue-600 hover:underline"
+              = link_to hotel["name"].titleize, offer_details_hotels_path(offer_id: hotel["offer_id"]), target: '_blank', class: "text-blue-600 hover:underline"
 
   div.flex.justify-center.mt-5
     = link_to 'Next page', search_hotels_path(page: @page + 1, city: params[:city], country: params[:country], check_in_date: params[:check_in_date], check_out_date: params[:check_out_date], room_quantity: params[:room_quantity], adults: params[:adults]), class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform duration-200 transform hover:scale-105"
-
-
-  /
-  / div.mx-auto
-  /   - if flash[:alert]
-  /     div.bg-red-500.text-white.text-center.p-3.rounded-lg.mb-4 = flash[:alert]
-  /
-  /   h1.text-4xl.font-extrabold.text-gray-900.mb-8.text-center Hotel offers
-  /
-  /   = form_with url: search_hotels_path, method: :get do
-  /     div.mb-6.relative.flex.items-center.space-x-4
-  /       div.relative.flex-grow
-  /         = text_field_tag :city, params[:city], placeholder: "Search for hotels in a city...", class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500", id: "search-input"
-  /
-  /       div.relative
-  /         = select_tag :country, options_for_select(@countries), include_blank: 'Select country (required)', class: "border border-gray-300 text-gray-700 rounded-lg px-8 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
-  /
-  /       div.relative
-  /         = date_field_tag :check_in, params[:check_in], placeholder: "Check-in", class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
-  /
-  /       div.relative
-  /         = date_field_tag :check_out, params[:check_out], placeholder: "Check-out", class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
-  /
-  /       div
-  /         = submit_tag "Search", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform duration-200 transform hover:scale-105"
-  /
-  /   - if @hotels.present?
-  /     div.container.mx-auto.p-6
-  /       h1.text-3xl.font-bold.text-center.mb-8 Hotel Listings
-  /
-  /       div.grid.grid-cols-1.sm:grid-cols-2.lg:grid-cols-3.gap-6
-  /         - @hotels.each do |hotel|
-  /           div.bg-white.shadow-lg.rounded-2xl.overflow-hidden.p-6.transition-transform.transform.hover:scale-105
-  /             h2.text-xl.font-semibold.text-gray-800.mb-2
-  /               = link_to hotel["name"].titleize, offers_hotels_path(hotel_id: hotel["hotelId"]), class: "text-blue-600 hover:underline"
-  /
-  /   = link_to 'Next page', search_hotels_path(page: @page + 1)
