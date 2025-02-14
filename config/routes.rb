@@ -43,4 +43,18 @@ Rails.application.routes.draw do
       post :create_booking
     end
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :hotels, only: :index do
+        collection do
+          get :search
+          get :offers
+          get :offer_details
+          get :new_booking
+          post :create_booking
+        end
+      end
+    end
+  end
 end
