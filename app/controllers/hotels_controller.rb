@@ -53,13 +53,15 @@ class HotelsController < ApplicationController
 
   def offer_details
     @offer = Amadeus::Hotels::Search.new.offer_details(offer_id: params[:offer_id])['data']
+
+    pry
   end
 
   def new_booking
     @offer_id = params[:offer_id]
-    @guests = {}
-    @payment_data = {}
-    @options = {}
+    @guests = OpenStruct.new
+    @payment_data = OpenStruct.new
+    @options = OpenStruct.new
   end
 
   def create_booking
