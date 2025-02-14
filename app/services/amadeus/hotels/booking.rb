@@ -1,49 +1,10 @@
 # frozen_string_literal: true
 
 class Amadeus::Hotels::Booking < Amadeus::Base
-  def create(offer_id:, payment_data:, user:, options: {})
-    # data = {
-    #   data: {
-    #     offer_id:,
-    #     guests: [
-    #       {
-    #         id: user.id,
-    #         name: {
-    #           # title: 'MR',
-    #           first_name: user.first_name,
-    #           last_name: user.last_name
-    #         },
-    #         contact: {
-    #           phone: user.phone_number,
-    #           email: user.email
-    #         }
-    #       }
-    #     ],
-    #     payments: [
-    #       {
-    #         id: payment_data[:id],
-    #         # method: payment_data[:method], # TODO: implement
-    #         method: 'creditCard',
-    #         card: {
-    #           vendor_code: payment_data[:vendor_code],
-    #           card_number: payment_data[:card_number],
-    #           expiryDate: payment_data[:expiry_date]
-    #         }
-    #       }
-    #     ],
-    #     rooms: [
-    #       {
-    #         guest_ids: options[:guest_ids],
-    #         payment_id: options[:id],
-    #         special_request: options[:special_request]
-    #       }
-    #     ]
-    #   }
-    # }
-
+  def create(offer_id:, payment_data:, user:)
     data = {
       data: {
-        type: "hotel-order",
+        type: 'hotel-order',
         guests: [
           {
             tid: user.id,
@@ -56,7 +17,7 @@ class Amadeus::Hotels::Booking < Amadeus::Base
         ],
         travel_agent: {
           contact: {
-            email: "bob.smith@email.com"
+            email: user.email
           }
         },
         room_associations: [
@@ -68,7 +29,7 @@ class Amadeus::Hotels::Booking < Amadeus::Base
           }
         ],
         payment: {
-          method: "CREDIT_CARD",
+          method: 'CREDIT_CARD',
           payment_card: {
             payment_card_info: {
               vendor_code: payment_data[:vendor_code],
@@ -80,9 +41,6 @@ class Amadeus::Hotels::Booking < Amadeus::Base
         }
       }
     }
-
-
-    pry
 
     post_request(options: data)
   end
