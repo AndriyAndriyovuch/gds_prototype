@@ -24,7 +24,7 @@ resource 'v1 Users > Authentication' do
           user:
             {
               invitation_token: user.raw_invitation_token,
-              password: password,
+              password:,
               password_confirmation: password
             }
         }

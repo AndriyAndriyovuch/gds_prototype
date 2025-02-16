@@ -15,7 +15,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     operation_response(
       Users::Operations::Update.call(
         record: current_user,
-        record_params: record_params
+        record_params:
       ),
       root: :user,
       view: :full

@@ -22,7 +22,7 @@ module ErrorHandler
   end
 
   def error_response(status, message, code, backtrace = '')
-    render json: { status: status, message: message, code: code, backtrace: backtrace }, status: code
+    render json: { status:, message:, code:, backtrace: }, status: code
   end
 
   def live_env?

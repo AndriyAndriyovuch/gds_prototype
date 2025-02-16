@@ -8,7 +8,7 @@ module BaseOperations::Destroy
 
     return yield if block_given?
 
-    success(record: record)
+    success(record:)
   end
   alias call destroy_record_call!
   alias call! destroy_record_call!

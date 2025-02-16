@@ -16,6 +16,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.idea/
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
@@ -38,3 +39,5 @@
 !/app/assets/builds/.keep
 
 /config/credentials/development.key
+
+/coverage

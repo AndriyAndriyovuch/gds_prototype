@@ -7,7 +7,6 @@ class Searchable < Module
   end
   # rubocop:enable Lint/MissingSuper
 
-  # rubocop:disable Metrics/AbcSize
   def extended(base)
     base.class_eval do
       def self.searchable_callbacks
@@ -44,5 +43,4 @@ class Searchable < Module
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

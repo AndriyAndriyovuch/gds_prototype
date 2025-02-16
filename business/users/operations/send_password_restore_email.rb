@@ -7,7 +7,7 @@ class Users::Operations::SendPasswordRestoreEmail < BaseOperation
     set_accept_password_url
     send_reset_password_instructions
 
-    success(record: record)
+    success(record:)
   end
 
   private

@@ -8,8 +8,8 @@ module Users::Searchable
 
     def search_fields
       {
-        id: id,
-        email: email
+        id:,
+        email:
       }
     end
   end

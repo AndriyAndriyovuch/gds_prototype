@@ -1,0 +1,50 @@
+= form_with url: create_booking_hotels_path, method: :post, local: true do |f|
+  = hidden_field_tag :offer_id, @offer_id
+  /
+  / h2.text-xl.font-bold.mb-4 Guests
+  / .guest-fields
+    / = fields_for :guests, @guests do |guest_form|
+    /   .mb-4
+    /     = guest_form.label :first_name, 'First Name'
+    /     = guest_form.text_field :first_name, class: 'border p-2 w-full'
+    /   .mb-4
+    /     = guest_form.label :last_name, 'Last Name'
+    /     = guest_form.text_field :last_name, class: 'border p-2 w-full'
+    /   .mb-4
+    /     = guest_form.label :phone, 'Phone Number'
+    /     = guest_form.text_field :contact, class: 'border p-2 w-full'
+    /   .mb-4
+    /     = guest_form.label :email, 'Email'
+    /     = guest_form.email_field :contact, class: 'border p-2 w-full'
+
+  h2.text-xl.font-bold.mb-4 Payment Information
+  .payment-fields
+    = fields_for :payment_data, @payment_data do |payment_form|
+      .mb-4
+        / = payment_form.label :method, 'Payment Method'
+        / = payment_form.select :method, options_for_select([['Credit Card', 'CREDIT_CARD'], ['External Provider', 'VCC_EXTERNAL_PROVIDER']]), class: 'border p-2 w-full'
+      .mb-4
+        = payment_form.label :vendor_code, 'Card Vendor'
+        = payment_form.text_field :vendor_code, class: 'border p-2 w-full'
+      .mb-4
+        = payment_form.label :card_number, 'Card Number'
+        = payment_form.text_field :card_number, class: 'border p-2 w-full'
+      .mb-4
+        = payment_form.label :expiry_date, 'Expiry Date'
+        = payment_form.text_field :expiry_date, class: 'border p-2 w-full'
+
+  h2.text-xl.font-bold.mb-4 Additional information
+  .room-fields
+    = fields_for :options, @options do |room_form|
+      .mb-4
+      /   = room_form.label :guest_ids, 'Guests'
+      /   = room_form.select :guest_ids, options_from_collection_for_select(@guests, :id, :full_name), multiple: true, class: 'border p-2 w-full'
+      / .mb-4
+      /   = room_form.label :payment_id, 'Payment'
+      /   = room_form.select :payment_id, options_from_collection_for_select(@payments, :id, :method), class: 'border p-2 w-full'
+      .mb-4
+        = room_form.label :special_request, 'Special Request'
+        = room_form.text_area :special_request, class: 'border p-2 w-full'
+
+  .mt-6
+    = f.submit 'Book Now', class: 'bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600'

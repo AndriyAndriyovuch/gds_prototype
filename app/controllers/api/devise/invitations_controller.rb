@@ -20,6 +20,6 @@ class Api::Devise::InvitationsController < Devise::InvitationsController
   end
 
   def user_not_authorized(*errors)
-    render_json({ errors: errors }, :forbidden)
+    render_json({ errors: }, :forbidden)
   end
 end

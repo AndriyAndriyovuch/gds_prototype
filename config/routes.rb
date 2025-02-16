@@ -3,6 +3,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }
+
   mount MaintenanceTasks::Engine, at: '/maintenance_tasks'
   mount Motor::Admin => '/motor_admin'
 
@@ -26,9 +28,33 @@ Rails.application.routes.draw do
   mount with_admin_auth.call(Sidekiq::Web), at: '/sidekiq'
 
   # Render dynamic PWA files from app/views/pwa/*
-  get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
-  get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
+  # get 'service-worker' => 'rails/pwa#service_worker', as: :pwa_service_worker
+  # get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root 'hotels#index'
+
+  resources :hotels, only: :index do
+    collection do
+      get :search
+      get :offers
+      get :offer_details
+      get :new_booking
+      post :create_booking
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :hotels, only: :index do
+        collection do
+          get :search
+          get :offers
+          get :offer_details
+          get :new_booking
+          post :create_booking
+        end
+      end
+    end
+  end
 end
