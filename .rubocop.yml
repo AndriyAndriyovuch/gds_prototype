@@ -34,6 +34,8 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - db/**/*
+    - app/services/sabre/**/*
+
   Max: 50
 
 Metrics/ModuleLength:
@@ -46,6 +48,7 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Exclude:
     - db/migrate/*
+    - app/services/sabre/**/*
 
 Layout/LineLength:
   Max: 140
