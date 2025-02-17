@@ -2,24 +2,23 @@
 
 class Sabre::Session < Sabre::Base
   class << self
-    EXPIRATION_TIME = 30.minutes
+    EXPIRATION_TIME = 7.days
 
     def key
-      Rails.cache.fetch('amadeus_session_key', expires_in: EXPIRATION_TIME) do
-        Sabre::Session.new.log_in
+      Rails.cache.fetch('sabre_session_key', expires_in: EXPIRATION_TIME) do
+        Sabre::Session.new.log_in['access_token']
       end
     end
 
     def delete
-      Rails.cache.delete(:amadeus_session_key)
+      Rails.cache.delete(:sabre_session_key)
     end
   end
 
   def log_in
     response = Faraday.post(url) do |req|
-      req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
       req.headers['Authorization'] = "Basic #{creds}"
-      req.body = 'grant_type=password&username=kihjndxekrhgun3m-DEVCENTER-EXT&password=dg8A6YlO'
+      req.headers['grant_type'] = 'client_credentials'
     end
 
     JSON.parse(response.body)
@@ -38,18 +37,20 @@ class Sabre::Session < Sabre::Base
   end
 
   def api_version
-    'v3'
+    'v2'
   end
 
   def creds
-    Base64.strict_encode64("#{key}:#{secret}") # ✅ Correct encoding
+    Base64.strict_encode64 "#{key}:#{secret}"
   end
 
   def key
-    'V1:kihjndxekrhgun3m:DEVCENTER:EXT'
+    Base64.strict_encode64 'V1:0wruk65lsb6a0ywm:DEVCENTER:EXT'
+    # 'V1:0wruk65lsb6a0ywm:DEVCENTER:EXT'
   end
 
   def secret
-    'dg8A6YlO'
+    Base64.strict_encode64 'xNf4NtY8'
+    # 'xNf4NtY8'
   end
 end

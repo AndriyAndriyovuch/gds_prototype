@@ -9,7 +9,7 @@ class Sabre::Base < BaseAction
     super
 
     # @amadeus = Amadeus::Client.new(client_id: RCreds.fetch(:amadeus, :api_key), client_secret: RCreds.fetch(:amadeus, :api_secret))
-    @url = ['https://api.platform.sabre.com', api_version, request_url].join('/')
+    @url = ['https://api.cert.platform.sabre.com', api_version, request_url].join('/')
   end
 
   def api_version
@@ -21,7 +21,11 @@ class Sabre::Base < BaseAction
   end
 
   def headers
-    { 'Authorization' => "Bearer #{Sabre::Session.key}" }
+    {
+      'Authorization' => "Bearer #{Sabre::Session.key}",
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json'
+    }
   end
 
   def get_request(destination_url = nil, options: {})
@@ -31,16 +35,13 @@ class Sabre::Base < BaseAction
   end
 
   def post_request(destination_url = nil, options: {})
-    request = Faraday.post([url, destination_url].compact.join('/'), options.to_json,
-                           headers.merge({ 'Content-Type' => 'application/json' }))
-
+    request = Faraday.post([url, destination_url].compact.join('/'), options.to_json, headers)
     JSON.parse(request.body)
   end
 end
 
-
-curl --request POST \
-  --header "Content-Type: application/x-www-form-urlencoded" \
-  --header "Authorization: Basic VjE6a2loam5keGVrcmhndW4zbTpERVZDRU5URVI6RVhUOmRnOEE2WWxP" \
-  -d "grant_type=password&username=kihjndxekrhgun3m-DEVCENTER-EXT&password=dg8A6YlO" \
-  https://api.platform.sabre.com/v3/auth/token
+# curl --request POST \
+#   --header "Content-Type: application/x-www-form-urlencoded" \
+#   --header "Authorization: Basic VjE6a2loam5keGVrcmhndW4zbTpERVZDRU5URVI6RVhUOmRnOEE2WWxP" \
+#   -d "grant_type=password&username=kihjndxekrhgun3m-DEVCENTER-EXT&password=dg8A6YlO" \
+#   https://api.platform.sabre.com/v3/auth/token
