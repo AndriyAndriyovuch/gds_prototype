@@ -218,7 +218,7 @@ GEM
       activesupport (>= 5.0.0)
     job-iteration (1.9.0)
       activejob (>= 5.2)
-    json (2.9.1)
+    json (2.10.1)
     jwt (2.10.1)
       base64
     kwalify (0.7.2)
@@ -381,7 +381,7 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.4.0)
+    rexml (3.4.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -427,7 +427,7 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
-    rubocop-factory_bot (2.25.1)
+    rubocop-factory_bot (2.26.0)
       rubocop (~> 1.41)
     rubocop-minitest (0.34.5)
       rubocop (>= 1.39, < 2.0)
@@ -605,7 +605,7 @@ DEPENDENCIES
   rspec-sidekiq
   rspec_api_documentation
   rubocop
-  rubocop-factory_bot (~> 2.25.1)
+  rubocop-factory_bot (~> 2.26.0)
   rubocop-performance (~> 1.20.2)
   rubocop-rails (~> 2.23.1)
   rubocop-rails-omakase
