@@ -2,95 +2,21 @@
 
 class Sabre::Hotels::Content < Sabre::Hotels::Base
   def call
-    options = {
-      GetHotelContentRQ: {
-        POS: {
-          Source: {
-            PseudoCityCode: 'TM61'
-          }
-        },
-        SearchCriteria: {
-          HotelRefs: {
-            HotelRef: {
-              HotelCode: '100123982',
-              CodeContext: 'GLOBAL'
-            }
-          },
-          DescriptiveInfoRef: {
-            PropertyInfo: true,
-            LocationInfo: true,
-            Amenities: true,
-            Descriptions: {
-              Description: [
-                {
-                  Type: 'ShortDescription'
-                }
-              ]
-            },
-            SecurityFeatures: true
-          },
-          MediaRef: {
-            MaxItems: '10',
-            MediaTypes: {
-              Images: {
-                Image: [
-                  {
-                    Type: 'MEDIUM'
-                  }
-                ]
-              },
-              PanoramicMedias: {
-                PanoramicMedia: [
-                  {
-                    Type: 'HD360'
-                  }
-                ]
-              },
-              Videos: {
-                Video: [
-                  {
-                    Type: 'VIDEO360'
-                  }
-                ]
-              }
-            },
-            Categories: {
-              Category: [
-                {
-                  Code: 1
-                }
-              ]
-            },
-            RoomTypeCodes: {
-              RoomTypeCode: [
-                {
-                  Code: 'A1K'
-                }
-              ]
-            },
-            AdditionalInfo: {
-              Info: [
-                {
-                  Type: 'CAPTION',
-                  value: true
-                },
-                {
-                  Type: 'ROOM_TYPE_CODE',
-                  value: false
-                }
-              ]
-            },
-            Languages: {
-              Language: [
-                {
-                  Code: 'EN'
-                }
-              ]
-            }
-          }
-        }
-      }
-    }
+    options = { get_hotel_content_r_q: {
+      p_o_s: { source: { pseudo_city_code: 'TM61' } },
+      search_criteria: { hotel_refs: { hotel_ref: { hotel_code: '100123982', code_context: 'GLOBAL' } },
+                         descriptive_info_ref: { property_info: true, location_info: true, amenities: true,
+                                                 descriptions: { description: [{ type: 'ShortDescription' }] }, security_features: true },
+                         media_ref: { max_items: '10',
+                                      media_types: { images: { image: [{ type: 'MEDIUM' }] }, panoramic_medias: { panoramic_media: [{ type: 'HD360' }] },
+                                                     videos: { video: [{ type: 'VIDEO360' }] } },
+                                      categories: { category: [{ code: 1 }] },
+                                      room_type_codes: { room_type_code: [{ code: 'A1K' }] },
+                                      additional_info: { info: [{ type: 'CAPTION', value: true },
+                                                                { type: 'ROOM_TYPE_CODE',
+                                                                  value: false }] },
+                                      languages: { language: [{ code: 'EN' }] } } }
+    } }
     post_request(options:)
 
     # {"GetHotelContentRS"=>

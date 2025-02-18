@@ -2,154 +2,43 @@
 
 class Sabre::Hotels::Details < Sabre::Hotels::Base
   def call
-    options = {
-      GetHotelDetailsRQ: {
-        POS: {
-          Source: {
-            PseudoCityCode: 'TM61'
-          }
-        },
-        CorporateNumber: 'DK44391RC',
-        SearchCriteria: {
-          HotelRefs: {
-            HotelRef: {
-              HotelCode: '100072188',
-              CodeContext: 'GLOBAL'
-            }
-          },
-          RateInfoRef: {
-            CurrencyCode: 'USD',
-            PrepaidQualifier: 'IncludePrepaid',
-            RefundableOnly: true,
-            ConvertedRateInfoOnly: true,
-            TravellerCountry: 'IN',
-            StayDateTimeRange: {
-              StartDate: '2025-06-20',
-              EndDate: '2025-06-21'
-            },
-            RateRange: {
-              Min: 100.005,
-              Max: 1013.005
-            },
-            RateFilters: {
-              RateFilter: [
-                {
-                  Type: 'Commission',
-                  Value: 'NC',
-                  Action: 'Exclude'
-                }
-              ]
-            },
-            Rooms: {
-              RoomSetTypes: {
-                RoomSet: [
-                  {
-                    Type: 'RoomView'
-                  }
-                ]
-              },
-              Room: [
-                {
-                  Index: 1,
-                  Adults: 1,
-                  Children: 1,
-                  ChildAges: '10'
-                }
-              ]
-            },
-            RatePlanCandidates: {
-              ExactMatchOnly: false,
-              RatePlanCandidate: [
-                {
-                  RatePlanType: '11',
-                  RatePlanCode: 'ABC'
-                }
-              ]
-            },
-            LoyaltyIds: {
-              LoyaltyId: %w[
-                YX1123
-                MC1234
-              ]
-            },
-            FrequentFlyerNumber: 'AQ1234',
-            CorpDiscount: '9876',
-            RateSource: '100,112,110,113',
-            SortOrder: 'ASC',
-            SortBy: 'NegotiatedRates'
-          },
-          HotelContentRef: {
-            DescriptiveInfoRef: {
-              PropertyInfo: true,
-              LocationInfo: true,
-              Amenities: true,
-              Descriptions: {
-                Description: [
-                  {
-                    Type: 'ShortDescription'
-                  }
-                ]
-              },
-              SecurityFeatures: true
-            },
-            MediaRef: {
-              MaxItems: '10',
-              MediaTypes: {
-                Images: {
-                  Image: [
-                    {
-                      Type: 'MEDIUM'
-                    }
-                  ]
-                },
-                PanoramicMedias: {
-                  PanoramicMedia: [
-                    {
-                      Type: 'HD360'
-                    }
-                  ]
-                },
-                Videos: {
-                  Video: [
-                    {
-                      Type: 'VIDEO360'
-                    }
-                  ]
-                }
-              },
-              Categories: {
-                Category: [
-                  {
-                    Code: 1
-                  }
-                ]
-              },
-              AdditionalInfo: {
-                Info: [
-                  {
-                    Type: 'CAPTION',
-                    value: true
-                  },
-                  {
-                    Type: 'ROOM_TYPE_CODE',
-                    value: false
-                  }
-                ]
-              },
-              Languages: {
-                Language: [
-                  {
-                    Code: 'EN'
-                  }
-                ]
-              },
-              MediaSource: 'string'
-            }
-          },
-          ShopKey: '1VPTneIQZRZ05aTk5wgCn0RX3x5yTNO6HtAtsaydr5My3ejpv0USJUNcTsjIfr/v2VB/Z/nHlU1IE45Yt8ayWw=='
-        }
-      }
-    }
+    options = { get_hotel_details_r_q: { p_o_s: { source: { pseudo_city_code: 'TM61' } },
+                                         corporate_number: 'DK44391RC',
+                                         search_criteria: { hotel_refs: { hotel_ref: { hotel_code: '100072188', code_context: 'GLOBAL' } },
+                                                            rate_info_ref: { currency_code: 'USD',
+                                                                             prepaid_qualifier: 'IncludePrepaid',
+                                                                             refundable_only: true,
+                                                                             converted_rate_info_only: true,
+                                                                             traveller_country: 'IN',
+                                                                             stay_date_time_range: { start_date: '2025-06-20',
+                                                                                                     end_date: '2025-06-21' },
+                                                                             rate_range: { min: 100.005, max: 1013.005 },
+                                                                             rate_filters: { rate_filter: [{ type: 'Commission', value: 'NC',
+                                                                                                             action: 'Exclude' }] },
+                                                                             rooms: { room_set_types: { room_set: [{ type: 'RoomView' }] },
+                                                                                      room: [{ index: 1, adults: 1, children: 1,
+                                                                                               child_ages: '10' }] },
+                                                                             rate_plan_candidates: { exact_match_only: false,
+                                                                                                     rate_plan_candidate: [{ rate_plan_type: '11',
+                                                                                                                             rate_plan_code: 'ABC' }] },
+                                                                             loyalty_ids: { loyalty_id: %w[YX1123
+                                                                                                           MC1234] },
+                                                                             frequent_flyer_number: 'AQ1234',
+                                                                             corp_discount: '9876',
+                                                                             rate_source: '100,112,110,113',
+                                                                             sort_order: 'ASC',
+                                                                             sort_by: 'NegotiatedRates' },
+                                                            hotel_content_ref: { descriptive_info_ref: { property_info: true, location_info: true, amenities: true, descriptions: { description: [{ type: 'ShortDescription' }] }, security_features: true },
+                                                                                 media_ref: { max_items: '10',
+                                                                                              media_types: { images: { image: [{ type: 'MEDIUM' }] },
+                                                                                                             panoramic_medias: { panoramic_media: [{ type: 'HD360' }] }, videos: { video: [{ type: 'VIDEO360' }] } },
+                                                                                              categories: { category: [{ code: 1 }] },
+                                                                                              additional_info: { info: [{ type: 'CAPTION', value: true },
+                                                                                                                        { type: 'ROOM_TYPE_CODE',
+                                                                                                                          value: false }] },
+                                                                                              languages: { language: [{ code: 'EN' }] },
+                                                                                              media_source: 'string' } },
+                                                            shop_key: '1VPTneIQZRZ05aTk5wgCn0RX3x5yTNO6HtAtsaydr5My3ejpv0USJUNcTsjIfr/v2VB/Z/nHlU1IE45Yt8ayWw==' } } }
 
     post_request(options:)
 

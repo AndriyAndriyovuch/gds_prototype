@@ -2,53 +2,21 @@
 
 class Sabre::Hotels::Availability < Sabre::Hotels::Base
   def call
-    options = {
-      GetHotelAvailRQ: {
-        POS: {
-          Source: {
-            PseudoCityCode: 'TM61'
-          }
-        },
-        SearchCriteria: {
-          OffSet: 1,
-          SortBy: 'NegotiatedRateAvailability',
-          SortOrder: 'ASC',
-          PageSize: 40,
-          GeoSearch: {
-            GeoRef: {
-              Radius: 200,
-              UOM: 'MI',
-              RestrictSearchToCountry: 'US',
-              GeoCode: {
-                Latitude: 32.758,
-                Longitude: -97.08
-              }
-            }
-          },
-          RateInfoRef: {
-            CurrencyCode: 'USD',
-            BestOnly: '4',
-            StayDateTimeRange: {
-              StartDate: '2025-02-21',
-              EndDate: '2025-02-23'
-            },
-            Rooms: {
-              Room: [
-                {
-                  Index: 1,
-                  Adults: 1,
-                  Children: 1,
-                  ChildAges: '10'
-                }
-              ]
-            }
-          },
-          HotelPref: {
-            LenientHotelName: 'inn and'
-          }
-        }
-      }
-    }
+    options = { get_hotel_avail_r_q: { p_o_s: { source: { pseudo_city_code: 'TM61' } },
+                                       search_criteria: { off_set: 1,
+                                                          sort_by: 'NegotiatedRateAvailability',
+                                                          sort_order: 'ASC',
+                                                          page_size: 40,
+                                                          geo_search: { geo_ref: { radius: 200, u_o_m: 'MI', restrict_search_to_country: 'US',
+                                                                                   geo_code: { latitude: 32.758, longitude: -97.08 } } },
+                                                          rate_info_ref: { currency_code: 'USD',
+                                                                           best_only: '4',
+                                                                           stay_date_time_range: { start_date: '2025-02-21',
+                                                                                                   end_date: '2025-02-23' },
+                                                                           rooms: { room: [{ index: 1, adults: 1, children: 1,
+                                                                                             child_ages: '10' }] } },
+                                                          hotel_pref: { lenient_hotel_name: 'inn and' } } } }
+
     post_request(options:)
 
     # {"GetHotelAvailRS"=>
