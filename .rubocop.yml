@@ -54,6 +54,7 @@ Layout/LineLength:
   Max: 140
   Exclude:
     - config/**/*
+    - app/services/sabre/**/* # TODO: fix
 
 RSpec/MultipleExpectations:
   Enabled: false

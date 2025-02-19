@@ -37,29 +37,29 @@ class Amadeus::Base < BaseAction
 
     JSON.parse(request.body)
   end
-
-  a = options.deep_transform_keys { |key| transform_key_good(key.to_s).to_sym }
-
-  # a = options.deep_transform_keys do |key|
-  def transform_key_good(key)
-    key_array = []
-    word = ''
-
-    key.chars.each do |k|
-      if word.blank?
-        word = k
-      elsif k == k.upcase
-        key_array << word
-        word = k
-      else
-        word += k
-      end
-    end
-
-    key_array << word
-
-    key_array.join('_').downcase
-  end
-
-  transform_key_good(a)
+  #
+  # a = options.deep_transform_keys { |key| transform_key_good(key.to_s).to_sym }
+  #
+  # # a = options.deep_transform_keys do |key|
+  # def transform_key(key)
+  #   key_array = []
+  #   word = ''
+  #
+  #   key.chars.each do |k|
+  #     if word.blank?
+  #       word = k
+  #     elsif k == k.upcase
+  #       key_array << word
+  #       word = k
+  #     else
+  #       word += k
+  #     end
+  #   end
+  #
+  #   key_array << word
+  #
+  #   key_array.join('_').downcase
+  # end
+  #
+  # transform_key_good(a)
 end
