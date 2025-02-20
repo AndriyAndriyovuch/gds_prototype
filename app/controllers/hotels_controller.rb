@@ -59,9 +59,9 @@ class HotelsController < ApplicationController
 
   def new_booking
     @offer_id = params[:offer_id]
-    @guests = Struct.new
-    @payment_data = Struct.new
-    @options = Struct.new
+    @guests = OpenStruct.new
+    @payment_data = OpenStruct.new
+    @options = OpenStruct.new
   end
 
   def create_booking

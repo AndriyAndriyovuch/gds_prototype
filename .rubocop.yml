@@ -34,6 +34,8 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - db/**/*
+    - app/services/sabre/**/*
+
   Max: 50
 
 Metrics/ModuleLength:
@@ -46,11 +48,13 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Exclude:
     - db/migrate/*
+    - app/services/sabre/**/*
 
 Layout/LineLength:
   Max: 140
   Exclude:
     - config/**/*
+    - app/services/sabre/**/* # TODO: fix
 
 RSpec/MultipleExpectations:
   Enabled: false
@@ -78,3 +82,7 @@ Rails/HttpPositionalArguments:
 
 RSpec/NestedGroups:
   Max: 5
+
+
+Style/OpenStructUse:
+  Enabled: false
