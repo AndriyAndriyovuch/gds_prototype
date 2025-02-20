@@ -18,9 +18,7 @@ class Sabre::Hotels::Content < Sabre::Hotels::Base
     data.merge!(pos)
     data.merge!(search_criteria)
 
-    data = { get_hotel_content_r_q: data }
-
-    # options = { get_hotel_content_r_q: {
+    # data = {
     #   p_o_s: { source: { pseudo_city_code: 'TM61' } },
     #   search_criteria: { hotel_refs: { hotel_ref: { hotel_code: '100123982', code_context: 'GLOBAL' } },
     #                      descriptive_info_ref: { property_info: true, location_info: true, amenities: true,
@@ -34,8 +32,8 @@ class Sabre::Hotels::Content < Sabre::Hotels::Base
     #                                                             { type: 'ROOM_TYPE_CODE',
     #                                                               value: false }] },
     #                                   languages: { language: [{ code: 'EN' }] } } }
-    # } }
-    post_request(options: data)
+    # }
+    post_request(options: { get_hotel_content_r_q: data })
 
     # {"GetHotelContentRS"=>
     #    {"ApplicationResults"=>

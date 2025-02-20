@@ -19,9 +19,7 @@ class Sabre::Hotels::Availability < Sabre::Hotels::Base
     data.merge!(pos)
     data.merge!(search_criteria)
 
-    { get_hotel_avail_r_q: data }
-
-    # options = { get_hotel_avail_r_q: { p_o_s: { source: { pseudo_city_code: 'TM61' } },
+    # data = { p_o_s: { source: { pseudo_city_code: 'TM61' } },
     #                                    search_criteria: { off_set: 1,
     #                                                       sort_by: 'NegotiatedRateAvailability',
     #                                                       sort_order: 'ASC',
@@ -34,9 +32,9 @@ class Sabre::Hotels::Availability < Sabre::Hotels::Base
     #                                                                                                end_date: '2025-02-23' },
     #                                                                        rooms: { room: [{ index: 1, adults: 1, children: 1,
     #                                                                                          child_ages: '10' }] } },
-    #                                                       hotel_pref: { lenient_hotel_name: 'inn and' } } } }
+    #                                                       hotel_pref: { lenient_hotel_name: 'inn and' } } }
 
-    post_request(options:)
+    post_request(options: { get_hotel_avail_r_q: data })
 
     # {"GetHotelAvailRS"=>
     #    {"ApplicationResults"=>
