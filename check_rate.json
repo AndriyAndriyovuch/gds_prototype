@@ -1,0 +1,74 @@
+{
+    "auditData"=>{
+        "processTime"=>"83",
+        "timestamp"=>"2025-02-21 13:13:37.353",
+        "requestHost"=>"93.175.203.171, 15.158.38.9, 10.214.142.172, 10.214.131.200",
+        "serverId"=>"ip-10-214-128-148.eu-central-1.compute.internal",
+        "environment"=>"[awseucentral1, awseucentral1c, ip_10_214_128_148, eucentral1, secret]",
+        "release"=>"",
+        "token"=>"13FABCEA0E9C45A1B6FA3F96C0D711A6",
+        "internal"=>"0|07~~21da1~-136856938~N~~~NRF~~D53174BA07AE47D174014128786505AAUK0004000000000621da1|UK|06|4|1|||||||||||R|1|1|~1~2~0|0|0||0|7326d3c755252a226ccf5afa66d834d9||||"
+    },
+    "hotel"=>{
+        "checkOut"=>"2025-06-16",
+        "checkIn"=>"2025-06-15",
+        "code"=>95,
+        "name"=>"Pestana Cascais Ocean and Conference Aparthotel",
+        "categoryCode"=>"4EST",
+        "categoryName"=>"4 STARS",
+        "destinationCode"=>"COS",
+        "destinationName"=>"Estoril Coast",
+        "zoneCode"=>30,
+        "zoneName"=>"Cascais",
+        "latitude"=>"38.69720000000000000000",
+        "longitude"=>"-9.43812200000000000000",
+        "rooms"=>[
+            {
+                "code"=>"DBT.DX-1",
+                "name"=>"Deluxe",
+                "rates"=>[
+                    {
+                        "rateKey"=>"20250615|20250616|W|59|95|DBT.DX-1|NRF-PACK-BAR-BB|BB||1~2~0||P@07~~21da1~-136856938~N~~~NRF~~D53174BA07AE47D174014128786505AAUK0004000000000621da1",
+                        "rateClass"=>"NRF",
+                        "rateType"=>"BOOKABLE",
+                        "net"=>"161.29",
+                        "allotment"=>49,
+                        "rateComments"=>"Any name changes will not be accepted once booking is confirmed  Estimated total amount of taxes & fees for this booking:8.00 Euro payable on arrival.  Car park YES (With additional debit notes).Check-in hour 15:00-00:00.",
+                        "paymentType"=>"AT_WEB",
+                        "packaging"=>true,
+                        "boardCode"=>"BB",
+                        "boardName"=>"BED AND BREAKFAST",
+                        "cancellationPolicies"=>[
+                            {
+                                "amount"=>"161.29",
+                                "from"=>"2025-02-20T23:59:00Z"
+                            }
+                        ],
+                        "taxes"=>{
+                            "taxes"=>[
+                                {
+                                    "included"=>false,
+                                    "amount"=>"8.00",
+                                    "currency"=>"EUR",
+                                    "clientAmount"=>"8.00",
+                                    "clientCurrency"=>"EUR"
+                                }
+                            ],
+                            "allIncluded"=>false
+                        },
+                        "rooms"=>1,
+                        "adults"=>2,
+                        "children"=>0
+                    }
+                ]
+            }
+        ],
+        "totalNet"=>"161.29",
+        "currency"=>"EUR",
+        "paymentDataRequired"=>false,
+        "modificationPolicies"=>{
+            "cancellation"=>true,
+            "modification"=>true
+        }
+    }
+}

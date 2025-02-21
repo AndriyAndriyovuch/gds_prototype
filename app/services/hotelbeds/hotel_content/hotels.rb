@@ -2,6 +2,7 @@
 
 class Hotelbeds::HotelContent::Hotels < Hotelbeds::Base
   # QUERY PARAMETERS
+  # https://developer.hotelbeds.com/documentation/hotels/content-api/api-reference/#tag/Hotels/operation/hotelsUsingGET
   #
   #   destinationCode
   # string

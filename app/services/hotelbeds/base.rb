@@ -38,10 +38,12 @@ class Hotelbeds::Base < BaseAction
   end
 
   def post_request(destination_url = nil, options: {})
-    request = Faraday.post([url, destination_url].compact.join('/'), options.deep_transform_keys! do |key|
-      key.to_s.camelize(:lower)
-    end.to_json, headers.merge!({ 'Content-Type' => 'application/vnd.amadeus+json' }))
+    request = Faraday.post([url, destination_url].compact.join('/'), options.to_json, post_headers)
 
     JSON.parse(request.body)
+  end
+
+  def post_headers
+    headers.merge!({ 'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Accept-Encoding' => 'identity' })
   end
 end
