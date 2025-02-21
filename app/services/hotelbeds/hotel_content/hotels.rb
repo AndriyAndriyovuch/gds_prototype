@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Hotelbeds::Hotels::Content < Hotelbeds::Hotels::Base
+class Hotelbeds::HotelContent::Hotels < Hotelbeds::Base
   # QUERY PARAMETERS
   #
   #   destinationCode
