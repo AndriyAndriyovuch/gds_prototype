@@ -35,7 +35,7 @@ gem 'sidekiq'
 gem 'slim-rails', '~> 3.7'
 gem 'sprockets-rails', require: 'sprockets/railtie'
 gem 'stimulus-rails'
-gem 'stringio', '~> 3.1', '>= 3.1.2'
+gem 'stringio', '~> 3.1'
 gem 'tailwindcss-rails', '~> 3.3.1'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
