@@ -1,0 +1,46 @@
+div.mx-auto.p-6.w-2/3
+  h1.text-3xl.font-bold.text-center.mb-8 Hotel Offers
+
+  - if flash[:alert]
+    div.bg-red-500.text-white.text-center.p-3.rounded-lg.mb-4 = flash[:alert]
+
+  - @hotels.each do |hotel|
+    div.bg-white.shadow-lg.rounded-xl.p-6.mb-6 data-controller="dropdown"
+      div.flex.justify-between.items-center.cursor-pointer data-action="click->dropdown#toggle"
+        h2.text-2xl.font-bold.text-gray-800 = hotel["name"]
+        button.text-gray-600.text-xl data-dropdown-target="icon" ▼
+
+      div.hidden.mt-4 data-dropdown-target="content"
+        div.flex.items-center.gap-2.text-gray-800.mb-2
+          span.font-medium Location:
+          span.font-bold = "#{hotel["destinationName"]} (#{hotel["destinationCode"]})"
+
+        div.flex.items-center.gap-2.text-gray-800.mb-2
+          span.font-medium Zone:
+          span.font-bold = "#{hotel["zoneName"]} (#{hotel["zoneCode"]})"
+
+        div.flex.items-center.gap-2.text-gray-800.mb-2
+          span.font-medium Coordinates:
+          span.font-bold = "Lat: #{hotel["latitude"]}, Lng: #{hotel["longitude"]}"
+
+        - hotel["rooms"].each do |room|
+          div.border-t.border-gray-300.mt-4.pt-4
+            h3.text-xl.font-semibold.text-gray-800 = room["name"]
+
+            - room["rates"].each do |rate|
+              div.bg-gray-100.p-4.rounded-lg.mb-4
+                div.flex.justify-between.items-center.mb-2
+                  span.text-lg.font-semibold.text-gray-800 Net Price:
+                  span.font-bold.text-green-600 = "#{rate["net"]} EUR"
+
+                - if rate["cancellationPolicies"].present?
+                  div.bg-red-50.p-3.rounded-lg.mt-2
+                    span.text-red-500.font-semibold Cancellation Policy:
+                    - rate["cancellationPolicies"].each do |policy|
+                      div.text-red-600 = "If canceled after #{DateTime.parse(policy["from"]).strftime("%d.%m.%Y %H:%M")}, charge: #{policy["amount"]} EUR"
+
+                - if rate["offers"].present?
+                  div.bg-blue-50.p-3.rounded-lg.mt-2
+                    span.text-blue-500.font-semibold Special Offers:
+                    - rate["offers"].each do |offer|
+                      div.text-blue-600 = "#{offer["name"]}: #{offer["amount"]} EUR discount"
