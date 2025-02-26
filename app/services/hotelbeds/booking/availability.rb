@@ -244,11 +244,12 @@ class Hotelbeds::Booking::Availability < Hotelbeds::Base
   # are not filters and as such all of the regular rates are returned with the normally not included ones.
 
   def call(options: {})
-    options = {
-      stay: { checkIn: '2025-06-15', checkOut: '2025-06-16' },
-      occupancies: [{ rooms: 1, adults: 2, children: 0 }],
-      hotels: { hotel: [95, 136, 124, 130, 15] }
-    }
+    # options = {
+    #   stay: { checkIn: '2025-06-15', checkOut: '2025-06-16' },
+    #   occupancies: [{ rooms: 1, adults: 2, children: 0 }],
+    #   hotels: { hotel: [95, 136, 124, 130, 15] }
+    # }
+    # pry
 
     # options.transform_keys! { |key| key.to_s.camelize(:lower) }
     # destination_url = "#{hotel_codes.join(',')}/details"

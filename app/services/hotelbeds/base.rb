@@ -38,7 +38,10 @@ class Hotelbeds::Base < BaseAction
   end
 
   def post_request(destination_url = nil, options: {})
-    request = Faraday.post([url, destination_url].compact.join('/'), options.to_json, post_headers)
+    # pry
+    request = Faraday.post([url, destination_url].compact.join('/'), options.deep_transform_keys! do |key|
+      key.to_s.camelize(:lower)
+    end.to_json, post_headers)
 
     JSON.parse(request.body)
   end
