@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HotelsController < ApplicationController
+class Amadeus::HotelsController < ApplicationController
   def index
     @countries = ISO3166::Country.all_names_with_codes
     @page = (params[:page].present? ? params[:page].to_i : 1)
@@ -46,7 +46,7 @@ class HotelsController < ApplicationController
   #
   #   if @offers.blank?
   #     flash[:alert] = 'No available rooms'
-  #     redirect_to search_hotels_path and return
+  #     redirect_to search_amadeus_hotels_path and return
   #   end
   #
   #   @countries = ISO3166::Country.all_names_with_codes

@@ -85,7 +85,7 @@ div.container.mx-auto.p-6
           - else
             p.text-gray-700 = value
 
-    = link_to 'Book now', new_booking_hotels_path(offer_id: @offer.dig("offers", 0, "id")), target: '_blank', class: 'mt-5 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
+    = link_to 'Book now', new_booking_amadeus_hotels_path(offer_id: @offer.dig("offers", 0, "id")), target: '_blank', class: 'mt-5 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
 
 
 / {"data"=>
