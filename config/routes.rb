@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   # get 'manifest' => 'rails/pwa#manifest', as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root 'amadeus/hotels#index'
+  root 'home#index'
 
   namespace :amadeus do
     resources :hotels, only: :index do
@@ -42,6 +42,18 @@ Rails.application.routes.draw do
         get :offer_details
         get :new_booking
         post :create_booking
+      end
+    end
+  end
+
+  namespace :hotelbeds do
+    resources :hotels, only: :index do
+      collection do
+        get :search
+        # get :offers
+        # get :offer_details
+        # get :new_booking
+        # post :create_booking
       end
     end
   end
