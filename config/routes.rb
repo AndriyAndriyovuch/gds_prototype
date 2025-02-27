@@ -50,10 +50,8 @@ Rails.application.routes.draw do
     resources :hotels, only: :index do
       collection do
         get :search
-        # get :offers
-        # get :offer_details
-        # get :new_booking
-        # post :create_booking
+        get :new_booking
+        post :create_booking
       end
     end
   end

@@ -47,5 +47,7 @@ div.mx-auto.p-6.w-2/3
                       span.text-blue-500.font-semibold Special Offers:
                       - rate["offers"].each do |offer|
                         div.text-blue-600 = "#{offer["name"]}: #{offer["amount"]} EUR discount"
+                  = link_to 'Book now', new_booking_hotelbeds_hotels_path(rate_key: rate["rateKey"], adults: params[:adults], children: params[:children]), target: '_blank', class: 'mt-5 text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'
+
   - else
     div.text-center.text-2xl.font-bold.text-gray-800 No Hotels Found

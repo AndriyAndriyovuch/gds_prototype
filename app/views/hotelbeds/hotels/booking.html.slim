@@ -1,0 +1,62 @@
+.container.mx-auto.p-6.bg-gray-50.rounded-lg.shadow-lg.max-w-3xl
+  h1.text-3xl.font-bold.text-blue-600.mb-6 Booking Details
+
+  .bg-white.p-4.rounded-lg.shadow-md
+    h2.text-xl.font-bold.text-gray-700.mb-2 Holder Information
+    p.text-gray-600
+      strong Name:
+      | #{@booking['holder']['name']} #{@booking['holder']['surname']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Hotel Information
+    p.text-gray-600
+      strong Hotel Name:
+      | #{@booking['hotel']['name']}
+    p.text-gray-600
+      strong Category:
+      | #{@booking['hotel']['categoryName']}
+    p.text-gray-600
+      strong Location:
+      | #{@booking['hotel']['destinationName']}, #{@booking['hotel']['zoneName']}
+    p.text-gray-600
+      strong Check-in:
+      | #{@booking['hotel']['checkIn']}
+    p.text-gray-600
+      strong Check-out:
+      | #{@booking['hotel']['checkOut']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Rooms
+    - @booking['hotel']['rooms'].each do |room|
+      .border-b.border-gray-300.pb-4.mb-4
+        h3.text-lg.font-semibold.text-gray-800 #{room['name']}
+        p.text-gray-600
+          strong Status:
+          | #{room['status']}
+        p.text-gray-600
+          strong Supplier Reference:
+          | #{room['supplierReference']}
+
+        h3.text-lg.font-bold.text-gray-700.mt-3 Guests:
+        ul.list-disc.pl-5
+          - room['paxes'].each do |pax|
+            li.text-gray-600
+              strong Type:
+              | #{pax['type']},
+              strong Name:
+              | #{pax['name']} #{pax['surname']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Payment & Policies
+    p.text-gray-600
+      strong Total Price:
+      | #{@booking['hotel']['totalNet']} #{@booking['currency']}
+    p.text-gray-600
+      strong Payment Type:
+      | #{@booking['hotel']['rooms'].first['rates'].first['paymentType']}
+
+    h3.text-lg.font-bold.text-gray-700.mt-3 Cancellation Policy:
+    ul.list-disc.pl-5.text-gray-600
+      - @booking['hotel']['rooms'].first['rates'].first['cancellationPolicies'].each do |policy|
+        li
+          | Cancel before #{policy['from']} for #{policy['amount']} #{@booking['currency']}

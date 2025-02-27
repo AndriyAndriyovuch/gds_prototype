@@ -30,52 +30,61 @@ class Hotelbeds::HotelsController < ApplicationController
     end
   end
 
-  def new_booking; end
+  def new_booking
+    @rate_key = params[:rate_key]
+    @adults = params[:adults]
+    @children = params[:children]
+  end
 
   def create_booking
+    # options = {
+    #   holder: {
+    #     name: 'HolderFirstName',
+    #     surname: 'HolderLastName'
+    #   },
+    #   rooms: [
+    #     {
+    #       rate_key: '20250228|20250301|W|254|124110|ROO.RO|ID_B2B_87|RO|B2BNRFUSXX|1~1~0||N@07~~25783' \
+    #                 '~-1216678656~N~~~NRF~~EB3CEA0819AA4C5174067227081605AAUK0080004900041025783',
+    #       paxes: [
+    #         {
+    #           room_id: 1,
+    #           type: 'AD',
+    #           name: 'First Adult Name',
+    #           surname: 'Surname'
+    #         }
+    #       ]
+    #     }
+    #   ],
+    #   client_reference: 'IntegrationAgency'
+    # }
+
     options = {
       holder: {
-        name: 'HolderFirstName',
-        surname: 'HolderLastName'
+        name: params[:holder_first_name],
+        surname: params[:holder_last_name]
       },
       rooms: [
         {
-          rate_key: '20250228|20250301|W|254|124110|ROO.RO|ID_B2B_87|RO|B2BNRFUSXX|1~1~0||N@07~~25783' \
-                    '~-1216678656~N~~~NRF~~EB3CEA0819AA4C5174067227081605AAUK0080004900041025783',
-          paxes: [
+          rate_key: params[:rate_key],
+          paxes: params[:visitors].map do |visitor|
             {
               room_id: 1,
-              type: 'AD',
-              name: 'First Adult Name',
-              surname: 'Surname'
+              type: visitor.values.first[:type],
+              name: visitor.values.first[:first_name],
+              surname: visitor.values.first[:last_name]
             }
-          ]
+          end
         }
       ],
       client_reference: 'IntegrationAgency'
     }
 
-    # options = {
-    #   holder: {
-    #     name: params[:holder_first_name],
-    #     surname: params[:holder_last_name]
-    #   },
-    #   rooms: [
-    #     {
-    #       rate_key: params[:rate_key],
-    #       paxes: params[:visitors].map do |visitor|
-    #         {
-    #           room_id: 1,
-    #           type: visitor[:type],
-    #           name: visitor[:first_name],
-    #           surname: visitor[:last_name]
-    #         }
-    #       end
-    #     }
-    #   ],
-    #   client_reference: 'IntegrationAgency'
-    # }
-    Hotelbeds::Booking::Confirmation.new.call(options:)
+    @booking = Rails.cache.fetch('booking', expires_in: 24.hours) do
+      Hotelbeds::Booking::Confirmation.new.call(options:)&.dig('booking')
+    end
+
+    render :booking
   end
   # rubocop:enable Metrics/AbcSize
 end
