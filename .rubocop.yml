@@ -78,3 +78,9 @@ Rails/HttpPositionalArguments:
 
 RSpec/NestedGroups:
   Max: 5
+
+Lint/ShadowedArgument:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false

@@ -1,0 +1,34 @@
+= form_with url: create_booking_hotelbeds_hotels_path, method: :post, data: { turbo: false } do |f|
+  = hidden_field_tag :rate_key, @rate_key
+
+  h2.text-xl.font-bold.mb-4 Holder Information
+  .holder-fields
+    .mb-4
+      = f.label :holder_first_name, 'First Name'
+      = f.text_field :holder_first_name, value: 'John', class: 'border p-2 w-full'
+    .mb-4
+      = f.label :holder_last_name, 'Last Name'
+      = f.text_field :holder_last_name, value: 'Doe', class: 'border p-2 w-full'
+
+  h2.text-xl.font-bold.mb-4 Visitors
+  .visitor-fields
+    - (@adults.to_i + @children.to_i).times do |i|
+      = fields_for "visitors[][#{i}]" do |visitor_form|
+        .mb-4
+          = visitor_form.label :type, 'Type'
+          = visitor_form.text_field :type, value: (i < @adults.to_i ? 'AD' : 'CH'), class: 'border p-2 w-full'
+        .mb-4
+          = visitor_form.label :first_name, 'First Name'
+          = visitor_form.text_field :first_name, value: "Visitor#{i+1}", class: 'border p-2 w-full'
+        .mb-4
+          = visitor_form.label :last_name, 'Last Name'
+          = visitor_form.text_field :last_name, value: 'Smith', class: 'border p-2 w-full'
+
+  h2.text-xl.font-bold.mb-4 Additional Information
+  .additional-info
+    .mb-4
+      = f.label :client_reference, 'Client Reference'
+      = f.text_field :client_reference, value: 'IntegrationAgency', class: 'border p-2 w-full', readonly: true
+
+  .mt-6
+    = f.submit 'Book Now', class: 'bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600'

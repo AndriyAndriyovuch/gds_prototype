@@ -1,0 +1,5 @@
+div.mx-auto
+  - if flash[:alert]
+    div.bg-red-500.text-white.text-center.p-3.rounded-lg.mb-4 = flash[:alert]
+
+  = render 'searchbar'

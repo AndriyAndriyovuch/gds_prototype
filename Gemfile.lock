@@ -194,6 +194,9 @@ GEM
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    geocoder (1.8.5)
+      base64 (>= 0.1.0)
+      csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
@@ -583,6 +586,7 @@ DEPENDENCIES
   faraday (~> 2.12, >= 2.12.2)
   file_exists
   font-awesome-rails (~> 4.7, >= 4.7.0.8)
+  geocoder (~> 1.8, >= 1.8.5)
   image_processing
   importmap-rails
   jbuilder

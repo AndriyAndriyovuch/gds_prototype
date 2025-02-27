@@ -32,7 +32,7 @@ class Api::V1::HotelsController < Api::V1::BaseController
 
     if @offers.blank?
       flash[:alert] = 'No available rooms'
-      redirect_to search_hotels_path and return
+      redirect_to search_amadeus_hotels_path and return
     end
 
     @countries = ISO3166::Country.all_names_with_codes
