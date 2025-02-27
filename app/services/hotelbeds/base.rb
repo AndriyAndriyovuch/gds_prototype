@@ -25,9 +25,10 @@ class Hotelbeds::Base < BaseAction
 
   def headers
     {
-      'Api-key' => RCreds.fetch(:hotelbeds, :api_key),
-      'X-Signature' => Digest::SHA256.hexdigest("#{RCreds.fetch(:hotelbeds,
-                                                                :api_key)}#{RCreds.fetch(:hotelbeds, :api_secret)}#{Time.now.to_i}")
+      'Api-key' => RCreds.fetch(:hotelbeds, :hotels, :api_key),
+      'X-Signature' => Digest::SHA256.hexdigest("#{RCreds.fetch(:hotelbeds, :hotels,
+                                                                :api_key)}#{RCreds.fetch(:hotelbeds, :hotels,
+                                                                                         :api_secret)}#{Time.now.to_i}")
     }
   end
 
@@ -38,7 +39,6 @@ class Hotelbeds::Base < BaseAction
   end
 
   def post_request(destination_url = nil, options: {})
-    # pry
     request = Faraday.post([url, destination_url].compact.join('/'), options.deep_transform_keys! do |key|
       key.to_s.camelize(:lower)
     end.to_json, post_headers)
