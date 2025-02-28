@@ -69,3 +69,7 @@ group :test do
   gem 'rspec-sidekiq'
   gem 'webmock'
 end
+
+gem 'dockerfile-rails', '>= 1.7', group: :development
+
+gem 'aws-sdk-s3', '~> 1.182', require: false
