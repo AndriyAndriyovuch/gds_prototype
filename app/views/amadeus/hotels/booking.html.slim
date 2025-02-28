@@ -1,0 +1,37 @@
+container.mx-auto.p-6.bg-gray-50.rounded-lg.shadow-lg.max-w-3xl
+  h1.text-3xl.font-bold.text-blue-600.mb-6 Booking Details
+
+  .bg-white.p-4.rounded-lg.shadow-md
+    h2.text-xl.font-bold.text-gray-700.mb-2 Holder Information
+    p.text-gray-600
+      strong Name:
+      | #{@booking['guests'].first['firstName']} #{@booking['guests'].first['lastName']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Hotel Information
+    p.text-gray-600
+      strong Hotel Name:
+      | #{@booking['hotelBookings'].first['hotel']['name']}
+    p.text-gray-600
+      strong Check-in:
+      | #{@booking['hotelBookings'].first['hotelOffer']['checkInDate']}
+    p.text-gray-600
+      strong Check-out:
+      | #{@booking['hotelBookings'].first['hotelOffer']['checkOutDate']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Rooms
+    .border-b.border-gray-300.pb-4.mb-4
+      h3.text-lg.font-semibold.text-gray-800 #{@booking['hotelBookings'].first['hotelOffer']['room']['description']['text']}
+      p.text-gray-600
+        strong Type:
+        | #{@booking['hotelBookings'].first['hotelOffer']['room']['type']}
+
+  .bg-white.p-4.rounded-lg.shadow-md.mt-4
+    h2.text-xl.font-bold.text-gray-700.mb-2 Payment & Policies
+    p.text-gray-600
+      strong Total Price:
+      | #{@booking['hotelBookings'].first['hotelOffer']['price']['base']} #{@booking['hotelBookings'].first['hotelOffer']['price']['currency']}
+    p.text-gray-600
+      strong Payment Type:
+      | #{@booking['hotelBookings'].first['hotelOffer']['policies']['paymentType']}

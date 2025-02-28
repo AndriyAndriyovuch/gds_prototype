@@ -1,4 +1,4 @@
-= form_with url: create_booking_amadeus_hotels_path, method: :post, local: true do |f|
+= form_with url: create_booking_amadeus_hotels_path, method: :post, data: { turbo: false } do |f|
   = hidden_field_tag :offer_id, @offer_id
   /
   / h2.text-xl.font-bold.mb-4 Guests
@@ -25,13 +25,13 @@
         / = payment_form.select :method, options_for_select([['Credit Card', 'CREDIT_CARD'], ['External Provider', 'VCC_EXTERNAL_PROVIDER']]), class: 'border p-2 w-full'
       .mb-4
         = payment_form.label :vendor_code, 'Card Vendor'
-        = payment_form.text_field :vendor_code, class: 'border p-2 w-full'
+        = payment_form.text_field :vendor_code, value: 'VI', class: 'border p-2 w-full'
       .mb-4
         = payment_form.label :card_number, 'Card Number'
-        = payment_form.text_field :card_number, class: 'border p-2 w-full'
+        = payment_form.text_field :card_number, value: 4242424242424242, class: 'border p-2 w-full'
       .mb-4
         = payment_form.label :expiry_date, 'Expiry Date'
-        = payment_form.text_field :expiry_date, class: 'border p-2 w-full'
+        = payment_form.text_field :expiry_date, value: '2026-08', class: 'border p-2 w-full'
 
   h2.text-xl.font-bold.mb-4 Additional information
   .room-fields
@@ -44,7 +44,7 @@
       /   = room_form.select :payment_id, options_from_collection_for_select(@payments, :id, :method), class: 'border p-2 w-full'
       .mb-4
         = room_form.label :special_request, 'Special Request'
-        = room_form.text_area :special_request, class: 'border p-2 w-full'
+        = room_form.text_area :special_request, value: 'A towel folded into the shape of Yoda', class: 'border p-2 w-full'
 
   .mt-6
     = f.submit 'Book Now', class: 'bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600'

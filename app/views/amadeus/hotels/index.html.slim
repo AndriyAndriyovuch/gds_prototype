@@ -9,27 +9,27 @@ div.mx-auto
 
       div.relative.flex-grow
         = label_tag :city, "City", class: "block text-gray-700 font-semibold mb-1"
-        = text_field_tag :city, params[:city], class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500", id: "search-input"
+        = text_field_tag :city,  params[:city] || 'BLR', class: "w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500", id: "search-input"
 
-      div.relative
-        = label_tag :country, "Country", class: "block text-gray-700 font-semibold mb-1"
-        = select_tag :country, options_for_select(@countries), include_blank: 'Select country (required)', class: "border border-gray-300 text-gray-700 rounded-lg px-8 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
+      / div.relative
+      /   = label_tag :country, "Country", class: "block text-gray-700 font-semibold mb-1"
+      /   = select_tag :country, options_for_select(@countries), include_blank: 'Select country (required)', class: "border border-gray-300 text-gray-700 rounded-lg px-8 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
 
       div.relative
         = label_tag :check_in_date, "Check-in Date", class: "block text-gray-700 font-semibold mb-1"
-        = date_field_tag :check_in_date, params[:check_in_date], class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
+        = date_field_tag :check_in_date, params[:check_in_date] || 1.day.from_now.strftime("%Y-%m-%d"), class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
 
       div.relative
         = label_tag :check_out_date, "Check-out Date", class: "block text-gray-700 font-semibold mb-1"
-        = date_field_tag :check_out_date, params[:check_out_date], class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
+        = date_field_tag :check_out_date, params[:check_out_date] || 2.days.from_now.strftime("%Y-%m-%d"), class: "border border-gray-300 text-gray-700 rounded-lg px-4 py-2 focus:ring focus:ring-blue-500 focus:border-blue-500"
 
       div.relative.flex-grow
         = label_tag :room_quantity, "Rooms", class: "block text-gray-700 font-semibold mb-1"
-        = text_field_tag :room_quantity, params[:room_quantity], class: "w-25 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
+        = text_field_tag :room_quantity, params[:room_quantity] || 1, class: "w-25 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
 
       div.relative.flex-grow
         = label_tag :adults, "Adults", class: "block text-gray-700 font-semibold mb-1"
-        = text_field_tag :adults, params[:adults], class: "w-25 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
+        = text_field_tag :adults, params[:adults] || 1, class: "w-25 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
 
     div.flex.justify-center
       = submit_tag "Search", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform duration-200 transform hover:scale-105"

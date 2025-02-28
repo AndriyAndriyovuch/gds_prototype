@@ -68,7 +68,8 @@ class Amadeus::HotelsController < ApplicationController
     @booking = Amadeus::Hotels::Booking.new.create(offer_id: params[:offer_id],
                                                    # guests: params[:guests],
                                                    payment_data: params[:payment_data],
-                                                   options: params[:options],
-                                                   user: User.last)
+                                                   user: User.last || FactoryBot.create(:user))['data']
+
+    render :booking
   end
 end

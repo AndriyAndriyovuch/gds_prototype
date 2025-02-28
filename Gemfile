@@ -10,6 +10,8 @@ gem 'credit_card_validations', '~> 7.0'
 gem 'devise', '~> 4.9', '>= 4.9.4'
 gem 'devise_invitable'
 gem 'devise-jwt'
+gem 'factory_bot_rails'
+gem 'faker'
 gem 'faraday', '~> 2.12', '>= 2.12.2'
 gem 'file_exists'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.8'
@@ -44,8 +46,6 @@ gem 'xlog'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
-  gem 'factory_bot_rails'
-  gem 'faker'
   gem 'pry-byebug'
   gem 'rubocop-rails-omakase', require: false
 end
