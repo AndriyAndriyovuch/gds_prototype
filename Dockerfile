@@ -1,42 +1,75 @@
-FROM --platform=linux/amd64 ruby:3.2.3
+# syntax=docker/dockerfile:1
+# check=error=true
 
-# Set an environment variable where the Rails app is installed to inside of Docker image
-ENV RAILS_ROOT /var/www/$APP_NAME
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
+ARG RUBY_VERSION=3.3.6
+FROM ruby:$RUBY_VERSION-slim AS base
 
-# Add label for watchtower
-LABEL com.centurylinklabs.watchtower.enable="true"
+LABEL fly_launch_runtime="rails"
 
-# make a new directory where our project will be copied
-RUN mkdir -p $RAILS_ROOT
+# Rails app lives here
+WORKDIR /rails
 
-# Set working directory within container
-WORKDIR $RAILS_ROOT
+# Update gems and bundler
+RUN gem update --system --no-document && \
+    gem install -N bundler
 
-# Setting env up
-ENV RAILS_ENV=$RAILS_ENV
-ENV RAKE_ENV=$RAILS_ENV
-ENV RACK_ENV=$RAILS_ENV
+# Install base packages
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Installing dependencies
+# Set production environment
+ENV BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development:test" \
+    RAILS_ENV="production"
 
-# install Openssl 1.1.1w needed for wkhtmltopdf
-#RUN wget http://ftp.uk.debian.org/debian/pool/main/o/openssl/libssl1.1_1.1.1w-0+deb11u1_amd64.deb -P /tmp \
-#    && dpkg -i /tmp/libssl1.1_1.1.1w-0+deb11u1_amd64.deb
 
-# Adding gems
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
-# development/production differs in bundle install
-RUN gem install bundler
-RUN bundle install --jobs 20 --retry 5
+# Throw-away build stage to reduce size of final image
+FROM base AS build
 
-# Adding project files
+# Install packages needed to build gems
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential libffi-dev libpq-dev libyaml-dev && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install application gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile --gemfile
+
+# Copy application code
 COPY . .
 
-# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
-RUN ["chmod", "+x", "./docker-entrypoint.sh"]
-RUN ["chmod", "+x", "./docker-entrypoint.test.sh"]
-RUN ["chmod", "+x", "./docker-entrypoint-sidekiq.sh"]
-RUN ["chmod", "+x", "./docker-entrypoint-anycable.sh"]
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-ENTRYPOINT ["sh", "./docker-entrypoint.sh"]
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+#RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+
+
+# Final stage for app image
+FROM base
+
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y imagemagick libvips && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Copy built artifacts: gems, application
+COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=build /rails /rails
+
+# Run and own only the runtime files as a non-root user for security
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    chown -R 1000:1000 db log storage tmp
+USER 1000:1000
+
+# Entrypoint sets up the container.
+ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+
+# Start the server by default, this can be overwritten at runtime
+EXPOSE 3000

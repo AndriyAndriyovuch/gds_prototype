@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: gds_prototype_production
-  username: gds_prototype
-  password: <%= ENV["GDS_PROTOTYPE_DATABASE_PASSWORD"] %>
